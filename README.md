@@ -1,4 +1,4 @@
-# 🔐 Secure E-Wallet & Transaction Ledger
+# Secure E-Wallet & Transaction Ledger
 
 A production-grade financial backend demonstrating **data security**, **compliance-ready audit trails**, and **concurrent transaction safety**.
 
