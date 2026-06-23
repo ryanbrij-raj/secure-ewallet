@@ -1,0 +1,45 @@
+# ── Build output ─────────────────────────────────────────────
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# ── Maven ────────────────────────────────────────────────────
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
+
+# ── IDE ──────────────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+
+# ── OS ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Secrets / environment ───────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+secrets/
+
+# ── Database ─────────────────────────────────────────────────
+*.db
+pgdata/
+
+# ── Test/coverage output ────────────────────────────────────
+/coverage/
+*.exec

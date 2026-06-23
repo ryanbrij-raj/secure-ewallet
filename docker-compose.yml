@@ -1,0 +1,54 @@
+version: "3.9"
+
+# ──────────────────────────────────────────────────────────────
+#  Secure E-Wallet — Local Development Stack
+# ──────────────────────────────────────────────────────────────
+#  Setup:
+#    cp .env.example .env
+#    # then edit .env with real generated secrets
+#
+#  Usage:
+#    docker compose up -d postgres
+#    ./mvnw spring-boot:run
+#
+#  Or to run everything in Docker:
+#    docker compose up -d
+# ──────────────────────────────────────────────────────────────
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ewallet_postgres
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB:       ${DB_NAME:-ewallet_db}
+      POSTGRES_USER:     ${DB_USERNAME:-ewallet_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-ewallet_user} -d ${DB_NAME:-ewallet_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: ewallet_app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
